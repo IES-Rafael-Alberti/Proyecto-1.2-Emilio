@@ -1,0 +1,93 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Forma segura de proteger tu sistema Ubuntu</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="ID de Google Analytics"
+                  id="identificador-unico-del-codelab"
+                  title="Forma segura de proteger tu sistema Ubuntu"
+                  environment="web"
+                  feedback-link="Un enlace en el que los usuarios puedan darte feedback (quizás creando un issue en un repositorio de git)">
+    
+      <google-codelab-step label="Forma segura de proteger tu sistema Ubuntu" duration="0">
+        <h2 is-upgraded>Ocultación del menú de arranque </h2>
+<p>Para poder ocultar primero el menú de arranque primero necesitamos modificar un parámetro de en el archivo <strong>/etc/grub.d/30_os-prober</strong> tenemos que cambiar el set time out a 0, esto es una funcion if que si el time out es igual a 0 antes se ponia a 5, pero con el cambio que hemos realizado que es cambiar el 5 por el 0 ahora no mostrara el grub. </p>
+<p> ~~~ <strong>sudo nano /etc/grub.d/30_os-prober</strong> ~~~  </p>
+<p class="image-container"><img alt="imagen" src="img\\ce56918121bef447.png"></p>
+<p>Ahora nos vamos al siguiente archivo que tenemos que modificar. </p>
+<p>~~~ <strong>Nano /Etc/Default/grup</strong> ~~~ </p>
+<p>Y cambiamos el  <em>GRUB_TIMEOUT=5 a 0</em>,  Después hacemos un <em>sudo update-grub</em>. </p>
+<p class="image-container"><img alt="imagen" src="img\\236c71c2bf0b22f7.png"></p>
+<p>Tambien en la instalación podemos seleccionar que no nos ponga el grub.   </p>
+<h2 is-upgraded>Contraseña de arranque </h2>
+<p>Primero abrimos una terminal, Con <strong>grub-mkpasswd-pbkdf2</strong> escribiremos la contraseña que le querremos poner al arranque y nos dara el hash de esa contraseña para que sea cifrado </p>
+<p class="image-container"><img alt="imagen" src="img\\e3716b1fa68edcd7.png">  </p>
+<p> Ahora nos vamos al fichero <strong>/boot/grub/grub.cfg</strong> Y añadiremos apartir de la línea 7  </p>
+<p>~~~</p>
+<p><strong>Set superusers=&#34;admin&#34; </strong></p>
+<p><strong>Password_pbkdf2 admin (y el hash de la contraseña copiada)</strong></p>
+<p> ~~~ </p>
+<p class="image-container"><img alt="imagen" src="img\\867a8ab38c90e2dc.png"></p>
+<p>ahora cuando reiniciemos </p>
+<p class="image-container"><img alt="imagen" src="img\\aaf381b3acd00436.png"></p>
+<h2 is-upgraded>Copia de seguridad DE LOS ARCHIVOS DE CONFIGURACION </h2>
+<p> ~~~ <strong>cp /boot/grub/grub/grub.cfg seguridad/grub.cfg.old</strong></p>
+<p><strong>cp /etc/grub.d/00_header 00_header.old</strong></p>
+<p><strong>cp /etc/grub.d/10_linux Seguridad/10_linux.old</strong></p>
+<p><strong>cp /etc/grub.d/30_os-prober Seguridad/30_os-prober.old</strong></p>
+<p> ~~~ </p>
+<p class="image-container"><img alt="imagen" src="img\\388db63d1241b0c2.png"></p>
+<h2 is-upgraded>mas formas de proteger tu sistema </h2>
+<p>Definir los usuarios y las contraseñas de los usuarios que podran modificar el grub </p>
+<p><strong>sudo nano /etc/grub.d/00_header</strong></p>
+<p><strong>cat &lt;&lt; EOF</strong></p>
+<p><strong>set superusers=&#34;root,joan&#34;</strong></p>
+<p><strong>password root 1234 </strong></p>
+<p><strong>password joan 4321</strong></p>
+<p><strong>EOF</strong></p>
+<p>Proteger las entradas pertenecientes al sistema operativo principal. </p>
+<h3 is-upgraded>Una instalacion segura </h3>
+<p>A la hora de la instalación es mejor no tener el equipo conectado a internet. </p>
+<p>En el nombre de la maquina como recomendación si se va a tratar de un servidor web o un apache o un dns o cualquier otro servicio que puede ser vulnerable mejor ponerle un nombre aleatorio o que no tenga nada que ver. </p>
+<p class="image-container"><img alt="imagen" src="img\\9c8d8c4ba3b281b7.png"></p>
+<p>Las contraseñas como recomendación por seguridad tener al mínimo 8 caracteres </p>
+<p class="image-container"><img alt="imagen" src="img\\55c29ee60c723b64.png"></p>
+<p>A la hora de hacer la instalación del sistema operativo es recomendable hacer la partición del disco de forma manual </p>
+<p class="image-container"><img alt="imagen" src="img\\f30da0501dd9e069.png"></p>
+<p>Tambien vamos a cifrar Las particiones en este caso la raíz y el home, No particionamos el boot sino no podremos arrancar. </p>
+<p>Deberemos incluso ponerle una contraseña a los discos  </p>
+<p class="image-container"><img alt="imagen" src="img\\748a584f22b65cfe.png"></p>
+<p>Aqui nos pide que pongamos una contraseña para los discos. </p>
+<p class="image-container"><img alt="imagen" src="img\\280b4d74088cd880.png">  </p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
