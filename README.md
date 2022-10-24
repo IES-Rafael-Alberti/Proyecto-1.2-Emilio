@@ -113,7 +113,9 @@ Definir los usuarios y las contraseñas de los usuarios que podran modificar el 
 ##
 abrimos el fichero y nos vamos a la linea 
 ##
-(**printf "menuentry '${title}' ${CLASS} --users root,joan {\n" "${os}" "${version}"**)
+ ~~~
+printf "menuentry '${title}' ${CLASS} --users root,joan {\n" "${os}" "${version}"
+ ~~~
 ##
 Una vez localizada esta linea, tenemos que modificarla para que los usuarios root tenga que introducir un usuario y contraseña
 ##
