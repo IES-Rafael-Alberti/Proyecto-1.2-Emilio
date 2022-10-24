@@ -1,9 +1,16 @@
-
+author: Nombre del autor
+summary: Resumen del CodeLab
+id: identificador-unico-del-codelab
+categories: codelab,markdown
+environments: Web
+status: Published
+feedback link: Un enlace en el que los usuarios puedan darte feedback (quizás creando un issue en un repositorio de git)
+analytics account: ID de Google Analytics
 
  
 
 # Forma segura de proteger tu sistema Ubuntu 
-
+## Forma segura de proteger tu sistema Ubuntu 
 
 ### Ocultación del menú de arranque
 ##
@@ -99,7 +106,22 @@ Definir los usuarios y las contraseñas de los usuarios que podran modificar el 
 **EOF**
 ##
 ##
-Proteger las entradas pertenecientes al sistema operativo principal.
+##
+## Proteger las entradas pertenecientes al sistema operativo principal
+##
+**sudo nano /etc/grub.d/10_linux**
+##
+abrimos el fichero y nos vamos a la linea 
+##
+**printf "menuentry '${title}' ${CLASS} --users root,joan {\n" "${os}" "${version}"**
+##
+Una vez localizada esta linea, tenemos que modificarla para que los usuarios root tenga que introducir un usuario y contraseña
+##
+##
+actualizamos el grub
+##
+**sudo update-grub2**
+##
 ##
 ##
 #### Una instalacion segura
@@ -127,3 +149,4 @@ Deberemos incluso ponerle una contraseña a los discos
 Aqui nos pide que pongamos una contraseña para los discos.
 ##
 Ya lo demas es como la tipica instalacion
+
