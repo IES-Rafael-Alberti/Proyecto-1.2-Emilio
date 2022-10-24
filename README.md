@@ -1,14 +1,3 @@
-author: Nombre del autor
-summary: Resumen del CodeLab
-id: identificador-unico-del-codelab
-categories: codelab,markdown
-environments: Web
-status: Published
-feedback link: Un enlace en el que los usuarios puedan darte feedback (quizás creando un issue en un repositorio de git)
-analytics account: ID de Google Analytics
-
- 
-
 # Forma segura de proteger tu sistema Ubuntu 
 ## Forma segura de proteger tu sistema Ubuntu 
 
