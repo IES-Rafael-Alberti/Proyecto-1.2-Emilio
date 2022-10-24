@@ -109,12 +109,14 @@ Definir los usuarios y las contraseñas de los usuarios que podran modificar el 
 ##
 ## Proteger las entradas pertenecientes al sistema operativo principal
 ##
+ ~~~
 **sudo nano /etc/grub.d/10_linux**
+ ~~~
 ##
 abrimos el fichero y nos vamos a la linea 
 ##
  ~~~
-printf "menuentry '${title}' ${CLASS} --users root,joan {\n" "${os}" "${version}"
+printf "menuentry '${title}' ${CLASS} --users root {\n" "${os}" "${version}"
  ~~~
 ##
 Una vez localizada esta linea, tenemos que modificarla para que los usuarios root tenga que introducir un usuario y contraseña
